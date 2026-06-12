@@ -1,0 +1,15 @@
+package main
+
+import "fmt"
+
+func base() int {
+	return 7
+}
+
+func compute(a int, b int = base() + a) int {
+	return a*100 + b
+}
+
+func main() {
+	fmt.Println(compute(2), compute(2, 5), compute(a = 3))
+}

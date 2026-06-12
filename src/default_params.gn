@@ -1,0 +1,11 @@
+package main
+
+import "fmt"
+
+func compute(a int, b int = a + 1, c int = b + 1) {
+	fmt.Println(a, b, c)
+}
+
+func main() {
+    compute(1)
+}

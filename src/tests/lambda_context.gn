@@ -1,0 +1,19 @@
+package main
+
+import "fmt"
+
+type FilterFunc func(int) bool
+
+func filter(values []int, f FilterFunc) []int {
+	result := []int{}
+	for _, v := range values {
+		if f(v) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
+
+func main() {
+	fmt.Println(filter([]int{1, 2, 3, 4, 5, 6}, (x) => { return x%2 == 0 }))
+}

@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+type Pred func(int) bool
+
+func pick(values []int, p Pred) int {
+	for _, v := range values {
+		if p(v) {
+			return v
+		}
+	}
+	return -1
+}
+
+func firstEven(values []int) (p Pred) {
+	// short literal in a return-value context
+	p = (x) => { return x%2 == 0 }
+	return p
+}
+
+func main() {
+	// short literal in a variable declaration context
+	var big Pred = (x) => { return x > 10 }
+	fmt.Println(pick([]int{3, 7, 42}, big))
+	fmt.Println(pick([]int{5, 8, 9}, firstEven(nil)))
+}

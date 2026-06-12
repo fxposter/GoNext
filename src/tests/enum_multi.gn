@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+type Token enum {
+	Word(string)
+	Quoted(string)
+	Space
+}
+
+func describe(t Token) string {
+	out := ""
+	match t {
+	case Word(s) | Quoted(s):
+		out = "text:" + s
+	case Space:
+		out = "space"
+	}
+	return out
+}
+
+func main() {
+	fmt.Println(describe(Word("hello")))
+	fmt.Println(describe(Quoted("world")))
+	fmt.Println(describe(Space()))
+	fmt.Println(Word("x").IsWord(), Space().IsWord())
+}

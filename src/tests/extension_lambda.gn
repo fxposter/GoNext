@@ -1,0 +1,33 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+extension func Filter[T any](values []T, predicate func(T, int) bool) []T {
+	result := make([]T, 0, len(values))
+	for i, value := range values {
+		if predicate(value, i) {
+			result = append(result, value)
+		}
+	}
+	return result
+}
+
+extension func Map[T any, R any](values []T, mapper func(T, int) R) []R {
+	result := make([]R, 0, len(values))
+	for i, value := range values {
+		result = append(result, mapper(value, i))
+	}
+	return result
+}
+
+func main() {
+	values := []int{1, 2, 3, 4}
+	result := values.
+		Filter((value, _) => { return value%2 == 0 }).
+		Map((value, _) => { return strconv.Itoa(value * value) })
+	fmt.Println(strings.Join(result, ","))
+}

@@ -1,0 +1,16 @@
+package main
+
+import "fmt"
+
+type State enum {
+	On(int)
+	Off
+}
+
+func main() {
+	v := On(1)
+	match v {
+	case On(x):
+		fmt.Println(x)
+	}
+}

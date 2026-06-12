@@ -1,0 +1,48 @@
+package main
+
+import "fmt"
+
+type Option[T any] enum {
+	Some(T)
+	None
+}
+
+extension func GetOrElse[T any](opt Option[T], fallback T) T {
+	if ok, v := opt.Some(); ok {
+		return v
+	}
+	return fallback
+}
+
+extension func Map[T any, R any](values []T, mapper func(T, int) R) []R {
+	result := make([]R, 0, len(values))
+	for i, value := range values {
+		result = append(result, mapper(value, i))
+	}
+	return result
+}
+
+func greet(name string, greeting string = "Hello") string {
+	return greeting + ", " + name
+}
+
+func main() {
+	var x Option[int] = Some(42)
+	var y Option[int] = None()
+	fmt.Println(x.GetOrElse(0), y.GetOrElse(7))
+
+	fmt.Println(greet("world"))
+	fmt.Println(greet("light", greeting = "Hi"))
+
+	labels := []int{1, 2, 3}.Map((v, i) => { return greet(fmt.Sprint(v), greeting = "N") })
+	fmt.Println(labels)
+
+	match y {
+	case Some(v) if v > 0:
+		fmt.Println("positive", v)
+	case Some(v):
+		fmt.Println("value", v)
+	case None:
+		fmt.Println("none")
+	}
+}

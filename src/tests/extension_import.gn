@@ -1,0 +1,10 @@
+package main
+
+import "fmt"
+import extension "strings"
+
+func main() {
+	fmt.Println("hello world".ToUpper())
+	parts := "a,b,c".Split(",")
+	fmt.Println(len(parts), parts[0])
+}

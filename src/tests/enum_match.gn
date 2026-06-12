@@ -1,0 +1,43 @@
+package main
+
+import "fmt"
+
+type Result[T any] enum {
+	Ok(T)
+	Err(string)
+	Empty
+}
+
+func main() {
+	var value Result[int] = Ok(5)
+	match value {
+	case Ok(v):
+		fmt.Println("ok", v)
+	case Err(msg) if msg != "":
+		fmt.Println("err", msg)
+	default:
+		fmt.Println("default")
+	}
+
+	if ok, v := value.Ok(); ok {
+		fmt.Println(v)
+	}
+
+	value = Err("boom")
+	match value {
+	case Ok(_):
+		fmt.Println("unexpected")
+	case Err(msg):
+		fmt.Println("err", msg)
+	default:
+		fmt.Println("default")
+	}
+
+	value = Empty()
+	match value {
+	case Ok(_):
+		fmt.Println("unexpected")
+	default:
+		fmt.Println("empty")
+	}
+}

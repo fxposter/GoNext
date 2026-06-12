@@ -1,0 +1,28 @@
+package main
+
+import "fmt"
+
+type Shape enum {
+	Circle(int)
+	Square(int)
+	Dot
+}
+
+func area(s Shape) int {
+	result := 0
+	match s {
+	case Circle(r) if r > 10:
+		result = 100
+	case Circle(r):
+		result = 3 * r * r
+	case Square(side):
+		result = side * side
+	case Dot:
+		result = 0
+	}
+	return result
+}
+
+func main() {
+	fmt.Println(area(Circle(2)), area(Circle(20)), area(Square(3)), area(Dot()))
+}
